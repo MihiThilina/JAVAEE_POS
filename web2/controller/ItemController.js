@@ -1,11 +1,9 @@
 //-----------------------item details---------------------------------------
 
 $("#saveItems").click(function () {
-    saveItem();
     loadAllItems();
-    clear();
-    colorRemove();
-})
+    saveItemDetails()
+});
 
 function updateRow() {
     $(".updaterow").click(function () {
@@ -32,10 +30,7 @@ $("#updateItem").click(function () {
 
     for (var i = 0; i <ItemDB.length; i++) {
         if ($("#itemcode").val() == ItemDB[i].getItemCode()) {
-            ItemDB[i].setItemCode() = itemCode;
-            ItemDB[i].setItemName()= itemName;
-            ItemDB[i].setItemPrice() = price;
-            ItemDB[i].setItemQty() = qtyOnHand;
+
         }
     }
     loadAllItems();
@@ -45,30 +40,43 @@ $("#updateItem").click(function () {
 
 
 
-function saveItem() {
-    let itemCode = $("#itemcode").val();
-    let itemName = $("#itemNames").val();
-    let price = $("#Itemprice").val();
-    let qtyOnHand = $("#QtyonHand").val();
-    ItemDB.push(new Item(itemCode,itemName,price,qtyOnHand));
-    addValuesToItems("<option>" + itemCode + "</option>");  
+function saveItemDetails() {
+    var data = $("#itemform").serialize();
+    $.ajax({
+        url: "items",
+        method:"POST",
+        data:data,
+        success:function (add){
+            alert(add.data);
+        }
+    });
 }
 
 
 
+function forItem() {
+    loadAllItems();
+}
 
 function loadAllItems() {
     $("#ItemTable").empty();
-    for(var i of ItemDB) {
-        let row = `<tr><td>${i.getItemCode()}</td><td>${i.getItemName()}</td><td>${i.getItemPrice()}</td><td>${i.getItemQty()}</td>
+
+    $.ajax({
+        url: "item",
+        method: "GET",
+        success : function (response) {
+            for(var i of response.data) {
+                let row = `<tr><td>${i.itemCode}</td><td>${i.itemName}</td><td>${i.price}</td><td>${i.qty}</td>
                 <td><button type="button" class="btn-sm  btnDeleteItem btn-danger">Delete</button>
                 <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-sm border btn-success updaterow" style="width: 11%;  "><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                 width="24" height="20"
                 viewBox="0 0 172 172"
                 style=" right:5px; position: relative; fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M101.05,42.28333l-79.55,79.55v28.66667h28.66667l79.55,-79.55zM111.8,31.53333l17.2,-17.2l28.66667,28.66667l-17.2,17.2z"></path></g></g></svg></button></td>
                 </tr>`;
-        $("#ItemTable").append(row);
-    }
+                $("#ItemTable").append(row);
+            }
+        }
+    })
     updateRow();
 }
 

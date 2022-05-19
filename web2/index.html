@@ -36,7 +36,7 @@
             <a class="nav-link" href="#">Orders</a>
           </li>
           <li class="nav-item" id="btn-item">
-            <a class="nav-link" href="#">Items</a>
+            <a onclick="forItem()" class="nav-link" href="#">Items</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Others</a>
@@ -432,27 +432,27 @@
                 <form id="itemform">
                   <div class="form-group px-2 p-2" style="width: 100%; ">
                     <label for="exampleInputEmail1">Item Code</label>
-                    <input type="email" class="form-control border-2 validation1" id="itemcode" aria-describedby="emailHelp" placeholder="I-0001">
+                    <input type="email" name="item_code" class="form-control border-2 validation1" id="itemcode" aria-describedby="emailHelp" placeholder="I-0001">
                     <span class="description_alert"></span>
                   </div>
                   <div class="form-group px-2 p-2" style="width: 100%;">
                     <label for="exampleInputEmail1">Item Name</label>
-                    <input type="email" class="form-control  border-2 validation2" id="itemNames" aria-describedby="emailHelp"
+                    <input type="email" name="item_Name" class="form-control  border-2 validation2" id="itemNames" aria-describedby="emailHelp"
                            placeholder="Thilina Bandara">
                   </div>
                   <div class="form-group px-2 p-2" style="width: 100%;">
                     <label for="exampleInputEmail1">Price</label>
-                    <input type="email" class="form-control  border-2  validation3" id="Itemprice" aria-describedby="emailHelp"
+                    <input type="email"  name="pri_ce" class="form-control  border-2  validation3" id="Itemprice" aria-describedby="emailHelp"
                            placeholder="10000.00">
                   </div>
                   <div class="form-group px-2  p-2" style="width: 100%;">
                     <label for="exampleInputEmail1">Order qty</label>
-                    <input type="email" class="form-control border-2 validation4" id="QtyonHand" aria-describedby="emailHelp"
+                    <input type="email" name="q_ty" class="form-control border-2 validation4" id="QtyonHand" aria-describedby="emailHelp"
                            placeholder="45">
                   </div>
-                  <button type="submit" class="btn mt-5 " id="saveItems"
+                  <button type="button" class="btn mt-5 " id="saveItems"
                           style="width: 50%; background-color: rgb(56, 255, 56); position:relative; left:50%;">Save</button>
-                  <button type="submit" class="btn mt-2 " id="updateItem"
+                  <button type="button" class="btn mt-2 " id="updateItem"
                           style="width: 50%; background-color: rgb(56, 149, 255); position:relative; left:50%;">Update</button>
                 </form>
 

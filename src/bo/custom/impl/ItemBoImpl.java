@@ -5,6 +5,9 @@ import dao.DAOFactory;
 import dao.custom.impl.CustomerDAOImpl;
 import dao.custom.impl.ItemDAOImpl;
 import dto.CustomerDTO;
+import dto.ItemDTO;
+import entity.Customer;
+import entity.Item;
 
 import javax.json.JsonArrayBuilder;
 import java.sql.SQLException;
@@ -15,8 +18,9 @@ public class ItemBoImpl implements ItemBo {
 
 
     @Override
-    public boolean addItem(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean addItem(ItemDTO i) throws SQLException, ClassNotFoundException {
+        Item item1 = new Item(i.getItemCode(),i.getItemName(),i.getPrice(),i.getQty());
+        return itemDAO.add(item1);
     }
 
     @Override
@@ -25,12 +29,12 @@ public class ItemBoImpl implements ItemBo {
     }
 
     @Override
-    public boolean updateItem(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+    public boolean updateItem(ItemDTO itemDTO) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
     public JsonArrayBuilder getAllItem() throws SQLException {
-        return null;
+        return itemDAO.getAll();
     }
 }

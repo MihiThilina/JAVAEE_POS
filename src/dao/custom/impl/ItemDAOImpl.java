@@ -25,10 +25,12 @@ public class ItemDAOImpl  implements ItemDAO {
         Connection connection = ItemServlet.dataSource.getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT into Item values(?,?,?,?)");
 
-        pstm.setObject(1, item.getItemCode());
-        pstm.setObject(2, item.getItemName());
-        pstm.setObject(3, item.getPrice());
-        pstm.setObject(4, item.getQty());
+        pstm.setString(1, item.getItemCode());
+        pstm.setString(2, item.getItemName());
+        pstm.setDouble(3, item.getPrice());
+        pstm.setInt(4, item.getQty());
+
+        System.out.println(item.getItemCode());
 
         int executeUpdate = pstm.executeUpdate();
         connection.close();
@@ -51,10 +53,10 @@ public class ItemDAOImpl  implements ItemDAO {
     public boolean update(Item i) throws SQLException, ClassNotFoundException {
         Connection connection = ItemServlet.dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("Update Customer set  CustName=?,CustAddress=?,Salary=? where CustID=?");
-        preparedStatement.setObject(1, i.getItemCode());
-        preparedStatement.setObject(2, i.getItemName());
-        preparedStatement.setObject(3, i.getPrice());
-        preparedStatement.setObject(4, i.getQty());
+        preparedStatement.setString(1, i.getItemCode());
+        preparedStatement.setString(2, i.getItemName());
+        preparedStatement.setDouble(3, i.getPrice());
+        preparedStatement.setInt(4, i.getQty());
         int executeUpdate = preparedStatement.executeUpdate();
         connection.close();
         return executeUpdate > 0;

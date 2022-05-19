@@ -10,6 +10,8 @@ public class ItemDTO {
     public ItemDTO() {
     }
 
+
+
     public ItemDTO(String itemCode, String itemName, double price, int qty) {
         ItemCode = itemCode;
         ItemName = itemName;
