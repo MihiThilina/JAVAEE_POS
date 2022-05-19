@@ -6,6 +6,15 @@ public class Customer {
     private String CustAddress;
     private double Salary;
 
+    public Customer() {
+    }
+
+    public Customer(String custID, String custName, String custAddress, double salary) {
+        CustID = custID;
+        CustName = custName;
+        CustAddress = custAddress;
+        Salary = salary;
+    }
 
     public String getCustID() {
         return CustID;

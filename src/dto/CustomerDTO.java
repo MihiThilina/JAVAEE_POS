@@ -6,6 +6,16 @@ public class CustomerDTO {
      private String CustAddress;
      private double Salary;
 
+    public CustomerDTO() {
+    }
+
+    public CustomerDTO(String custID, String custName, String custAddress, double salary) {
+        CustID = custID;
+        CustName = custName;
+        CustAddress = custAddress;
+        Salary = salary;
+    }
+
     public String getCustID() {
         return CustID;
     }
