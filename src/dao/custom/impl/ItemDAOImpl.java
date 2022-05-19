@@ -1,11 +1,9 @@
 package dao.custom.impl;
 
 import com.sun.xml.internal.bind.v2.model.core.ID;
-import dao.custom.CustomerDAO;
 import dao.custom.ItemDAO;
 import entity.Customer;
 import entity.Item;
-import servlet.CustomerServlet;
 import servlet.ItemServlet;
 
 import javax.json.Json;
@@ -15,7 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ItemDAOImpl  implements ItemDAO {
 
@@ -90,4 +87,11 @@ public class ItemDAOImpl  implements ItemDAO {
         connection.close();
         return arrayBuilder;
     }
+
+    @Override
+    public Object getCode(String id) throws SQLException {
+        return null;
+    }
+
+
 }

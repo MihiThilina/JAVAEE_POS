@@ -8,16 +8,18 @@ $("#saveCustormer").click(function (e){
 
 
 function saveCustormers(){
-
-    var data = $("#customerForm").serialize();
+var cusId=$("#custormerID").var();
+data = $("#customerForm").serialize();
     $.ajax({
-        url: "customer",
+        url: "http://localhost:8080/PosSystem/customer",
         method:"POST",
         data:data,
         success:function (add){
             alert(add.data);
         }
     });
+
+
 }
 
 function forCustomer() {
@@ -27,7 +29,7 @@ function forCustomer() {
 function loadAllCustomers(){
     $("#custormerTable").empty()
     $.ajax({
-        url: "customer",
+        url: "http://localhost:8080/PosSystem/customer",
         method: "GET",
         success : function (response) {
             for (var i of response.data) {

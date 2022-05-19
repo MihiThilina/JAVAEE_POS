@@ -17,4 +17,5 @@ public interface CustomerBO extends SuperBo {
     boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException;
     boolean updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
     JsonArrayBuilder getAllCustomer() throws SQLException;
+    public CustomerDTO getCustomer(String id) throws SQLException;
 }

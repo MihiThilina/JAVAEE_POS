@@ -28,7 +28,10 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       resp.setContentType("application/json");
+
+
+
+        resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
         try {
             JsonArrayBuilder allCustomer = customerBO.getAllCustomer();

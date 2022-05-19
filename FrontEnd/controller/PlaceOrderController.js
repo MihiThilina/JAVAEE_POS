@@ -4,7 +4,6 @@ $("#cmbItemId").append("<option> Select </option>");
 $("#cmbcustormerId").append("<option> Select </option>");
 
 
-
 $("#btnAddtoCart").click(function () {
     let itemQty =parseInt($("#itemqty").val());
     let orderQty =parseInt($("#OrderQty").val());
@@ -51,36 +50,59 @@ $(".comfirmOrders").click(function(){
 
 
 
-$("#cmbItemId").change(function () {
-    itemId = $("#cmbItemId").val();    
-    for (var i = 0; i <ItemDB.length; i++) {
-        if (ItemDB[i].getItemCode() == itemId) {
-           var itemName = ItemDB[i].getItemName();
-           var  price = ItemDB[i].getItemPrice();
-           var itemqty = ItemDB[i].getItemQty();
- 
-           console.log(itemName);
-           console.log(price);
-            $("#itNames").val(itemName);
-            $("#itemprice").val(price);
-            $("#itemqty").val(itemqty);
+$("#cmbItemId").click(function () {
+    console.log("Click kara")
+    var itemId = $("#cmbItemId").val();
+    $.ajax({
+        url: "http://localhost:8080/PosSystem/items",
+        method:"GET",
+        success : function (response) {
+            for (const i of response.data) {
+                addValuesToItems("<option>"+i.itemCode+"</option>");
+                if (i.itemCode == itemId) {
+                    itemName = i.itemName;
+                    price = i.price;
+                    itemqty = i.qty;
+                    $("#itNames").val(itemName);
+                    $("#itemprice").val(price);
+                    $("#itemqty").val(itemqty);
+                }
+            }
         }
-    }
+    })
+
+
+
+
+
+
 });
 
-$("#cmbcustormerId").click(function () {
-    cusId = $("#cmbcustormerId").val();
-    for (var i = 0; i < customerDB.length; i++) {
-        if (customerDB[i].getCusID() == cusId) {
-            cusName = customerDB[i].getCusName();
-            salary = customerDB[i].getCusSalary();
-            address = customerDB[i].getPhoneNumber();
 
-            $("#cusName").val(cusName);
-            $("#CusSalary").val(salary);
-            $("#CusAddress").val(address);
+$("#cmbcustormerId").click(function () {
+    var  cusId = $("#cmbcustormerId").val();
+    $("#cmbcustormerId").empty();
+    $.ajax({
+        url: "http://localhost:8080/PosSystem/customer",
+        method: "GET",
+        success : function (response) {
+            for (const i of response.data) {
+                addValuesToCmbCustomers("<option>"+i.id+"</option>");
+
+                if(i.id == cusId){
+                    cusName = i.name;
+                    salary = i.salary;
+                    address = i.address;
+
+
+                    $("#cusName").val(cusName);
+                    $("#CusSalary").val(salary);
+                    $("#CusAddress").val(address);
+                }
+            }
         }
-    }
+    })
+
 });
 
 
@@ -104,9 +126,7 @@ function addValuesToItems(value) {
     let date =$("#datetime").val();
     let discount =$("#txtDiscount").val();
     let totals =$("#txtTotal").text();
-     
-    
-    
+
         OrderDB.push(new Orders(oId,cusid,date,discount,totals));
  }
 
@@ -155,7 +175,6 @@ function addToCart() {
     for(var i in Carts){
         if(Carts[i].getcartICode()===itemCode){
           var newqty  =+Carts[i].getcartOQty() +  +orderQty;
-     //     console.log(newqty);
           var newTotal =itemPrice * newqty; 
           Carts[i].setcartOQty(newqty);
           Carts[i].setTotal(newTotal);

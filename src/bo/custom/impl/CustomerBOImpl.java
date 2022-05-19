@@ -34,5 +34,12 @@ public class CustomerBOImpl implements CustomerBO {
         return customerDAO.getAll();
     }
 
+    @Override
+    public CustomerDTO getCustomer(String id) throws SQLException {
+       Customer customer = customerDAO.getCode(id);
+       return new CustomerDTO(customer.getCustID(),customer.getCustName(),customer.getCustAddress(),customer.getSalary());
+
+    }
+
 
 }

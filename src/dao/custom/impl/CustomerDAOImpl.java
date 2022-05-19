@@ -7,13 +7,11 @@ import servlet.CustomerServlet;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -89,5 +87,27 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         connection.close();
         return arrayBuilder;
+    }
+
+    @Override
+    public Customer getCode(String id) throws SQLException {
+        Connection connection = CustomerServlet.dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from Customer where CustID=?");
+        preparedStatement.setObject(1,id);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Customer customer = null;
+
+        if (resultSet.next()){
+            customer = new Customer(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDouble(4)
+            );
+
+        }
+        return customer;
     }
 }

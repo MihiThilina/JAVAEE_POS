@@ -1,7 +1,10 @@
 package bo;
 
+import bo.custom.OrderDetailsBO;
 import bo.custom.impl.CustomerBOImpl;
 import bo.custom.impl.ItemBoImpl;
+import bo.custom.impl.OrderBOImpl;
+import bo.custom.impl.OrderDetailsBoImpl;
 import dao.custom.impl.CustomerDAOImpl;
 
 public class BOFactory {
@@ -24,12 +27,16 @@ public class BOFactory {
                 return new CustomerBOImpl();
             case ITEM:
                 return new ItemBoImpl();
+            case ORDER:
+                return new OrderBOImpl();
+            case ORDER_DETAILS:
+                return new OrderDetailsBoImpl();
             default:
                 return null;
         }
     }
    public enum  BoTypes{
-       CUSTOMER,ITEM
+       CUSTOMER,ITEM,ORDER,ORDER_DETAILS
    }
 
 

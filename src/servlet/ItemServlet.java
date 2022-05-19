@@ -25,24 +25,23 @@ public class ItemServlet extends HttpServlet {
 
     ItemBoImpl itemBo = (ItemBoImpl) BOFactory.getBoFactory().getBO(BOFactory.BoTypes.ITEM);
 
-
     @Resource(name = "java:comp/env/jdbc/pool")
     public static DataSource dataSource;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        resp.setContentType("application/json");
-//        PrintWriter writer = resp.getWriter();
-//        try {
-//            JsonArrayBuilder allItem =itemBo.getAllItem();
-//            JsonObjectBuilder response = Json.createObjectBuilder();
-//            response.add("status", 200);
-//            response.add("message", "Done");
-//            response.add("data", allItem.build());
-//            writer.print(response.build());
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
+        resp.setContentType("application/json");
+        PrintWriter writer = resp.getWriter();
+        try {
+            JsonArrayBuilder allItem =itemBo.getAllItem();
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status", 200);
+            response.add("message", "Done");
+            response.add("data", allItem.build());
+            writer.print(response.build());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
