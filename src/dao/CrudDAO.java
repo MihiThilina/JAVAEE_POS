@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public interface CrudDAO<T,Id> extends SuperDAO {
 
     boolean add(T t ) throws SQLException, ClassNotFoundException;
-    boolean delete(ID id) throws SQLException, ClassNotFoundException;
+    boolean delete(String id) throws SQLException, ClassNotFoundException;
     boolean update(T t) throws SQLException, ClassNotFoundException;
     JsonObjectBuilder search(ID id) throws SQLException, ClassNotFoundException;
     JsonArrayBuilder getAll() throws SQLException;

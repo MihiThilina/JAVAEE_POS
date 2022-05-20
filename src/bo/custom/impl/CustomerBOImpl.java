@@ -7,9 +7,8 @@ import dto.CustomerDTO;
 import entity.Customer;
 
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+
 import java.sql.SQLException;
-import java.util.List;
 
 public class CustomerBOImpl implements CustomerBO {
     CustomerDAOImpl customerDAO = (CustomerDAOImpl) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
@@ -21,12 +20,12 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return customerDAO.delete(id);
     }
 
     @Override
-    public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean updateCustomer(CustomerDTO c) throws SQLException, ClassNotFoundException {
+        return customerDAO.update(new Customer(c.getCustID(), c.getCustName(), c.getCustAddress(), c.getSalary()));
     }
 
     @Override

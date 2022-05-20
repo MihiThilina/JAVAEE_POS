@@ -34,7 +34,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean delete(ID id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         Connection connection = CustomerServlet.dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("Delete from Customer where CustID=?");
         preparedStatement.setObject(1, id);
@@ -42,8 +42,9 @@ public class CustomerDAOImpl implements CustomerDAO {
         int excuteupdate = preparedStatement.executeUpdate();
         connection.close();
         return excuteupdate > 0;
-
     }
+
+
 
     @Override
     public boolean update(Customer c) throws SQLException, ClassNotFoundException {

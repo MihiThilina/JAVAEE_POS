@@ -40,7 +40,7 @@ function generateOrderNumber() {
 
 
 $(".comfirmOrders").click(function(){
-   generateOrderNumber();
+   //generateOrderNumber();
    saveAllOrders();
    loadAllConfirmOrder();
    Carts=[];
@@ -53,6 +53,7 @@ $(".comfirmOrders").click(function(){
 $("#cmbItemId").click(function () {
     console.log("Click kara")
     var itemId = $("#cmbItemId").val();
+    $("#cmbItemId").empty();
     $.ajax({
         url: "http://localhost:8080/PosSystem/items",
         method:"GET",
@@ -70,12 +71,6 @@ $("#cmbItemId").click(function () {
             }
         }
     })
-
-
-
-
-
-
 });
 
 
@@ -130,19 +125,30 @@ function addValuesToItems(value) {
         OrderDB.push(new Orders(oId,cusid,date,discount,totals));
  }
 
- function saveOrderDetails(){ }
+
 
  function ReduceItemQty(orderQty){
      var qtyOn = parseInt(orderQty);
      var avilableQty = parseInt($("#itemqty").val());
+
      avilableQty = avilableQty - qtyOn;
      let  itemCode = $("#cmbItemId").val();
-    for(var i in ItemDB){
-        if(itemCode==ItemDB[i].getItemCode()){
-            ItemDB[i].setItemQty(avilableQty);
-            $("#itemqty").val(ItemDB[i].getItemQty());
-        }
-    }
+
+     var ob ={
+          "qty" :$("#itemqty").val(),
+          "itemCode" :$("#cmbItemId").val(),
+     }
+
+     $.ajax({
+         url:"http://localhost:8080/PosSystem/items",
+         method:"PUT",
+         contentType:"application/json",
+         data:JSON.stringify(ob),
+         success(resp){
+
+         }
+     })
+
  };
 
  let sub_total = 0;
@@ -169,7 +175,7 @@ function addToCart() {
   let total = itemPrice * orderQty;
   let fulltoal = $("#txtTotal").text();
 
-  // Carts =[];
+
    Calculatetotal($("#OrderQty").val(),$("#itemprice").val(),$("#txtDiscount").val());
   
     for(var i in Carts){
@@ -183,7 +189,8 @@ function addToCart() {
     }
    
     Carts.push(new cart(itemCode,itemName,itemPrice,orderQty,total,disc,fulltoal));
-    
+
+
 }
 
  function loadCartTable(){

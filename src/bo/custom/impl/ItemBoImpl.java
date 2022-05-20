@@ -25,12 +25,12 @@ public class ItemBoImpl implements ItemBo {
 
     @Override
     public boolean deleteItem(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return itemDAO.delete(id);
     }
 
     @Override
-    public boolean updateItem(ItemDTO itemDTO) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean updateItem(ItemDTO i) throws SQLException, ClassNotFoundException {
+        return itemDAO.update(new Item(i.getItemCode(),i.getItemName(),i.getPrice(),i.getQty()));
     }
 
     @Override

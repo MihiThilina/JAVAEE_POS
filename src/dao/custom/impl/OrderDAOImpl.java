@@ -3,12 +3,15 @@ package dao.custom.impl;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 import dao.custom.OrderDAO;
 import entity.Order;
+import servlet.CustomerServlet;
 import servlet.OrderServlet;
 
+import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -29,9 +32,11 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean delete(ID id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return false;
     }
+
+
 
     @Override
     public boolean update(Order order) throws SQLException, ClassNotFoundException {
@@ -45,7 +50,26 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public JsonArrayBuilder getAll() throws SQLException {
-        return null;
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+
+        Connection connection = OrderServlet.dataSource.getConnection();
+        PreparedStatement pts  = connection.prepareStatement("select * from `Order`");
+        ResultSet rst = pts.executeQuery();
+        while (rst.next()){
+            String  OrderID = rst.getString(1);
+            String  OrderDate = rst.getString(2);
+            String OrderTime = rst.getString(3);
+            String CustID = rst.getString(4);
+
+            objectBuilder.add("OrderID", OrderID);
+            objectBuilder.add("OrderDate", OrderDate);
+            objectBuilder.add("OrderTime", OrderTime);
+            objectBuilder.add("CustID", CustID);
+            arrayBuilder.add(objectBuilder.build());
+        }
+        connection.close();
+        return arrayBuilder;
     }
 
     @Override
